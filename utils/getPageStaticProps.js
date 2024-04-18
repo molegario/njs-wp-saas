@@ -2,8 +2,6 @@ import { gql } from "@apollo/client";
 import client from "client"
 
 export const getPageStaticProps = async (pageuri) => {
-
-  
   const { data } = await client.query({
     query: gql`
     query PageQuery($uri: String!) {
@@ -50,8 +48,5 @@ export const getPageStaticProps = async (pageuri) => {
       uri: pageuri || "/",
     }
   })
-
   return data || {};
-
-
 }

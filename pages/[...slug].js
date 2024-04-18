@@ -1,12 +1,13 @@
-import { gql } from "@apollo/client";
-import client from "client";
+// import { gql } from "@apollo/client";
+// import client from "client";
 import { BlockRenderer } from "components/BlockRenderer";
 import { cleanAndTransformBlocks } from "utils/cleanAndTransformBlocks";
+import { getPageStaticPaths } from "utils/getPageStaticPaths";
 import { getPageStaticProps } from "utils/getPageStaticProps";
 import { cleanCta, mapMainMenuItems } from "utils/mapMainMenuItems";
 
 const Page = (props) => {
-  console.log("PROPS::FE::", props)
+  // console.log("PROPS::FE::", props)
   return (
     <div>
       <BlockRenderer blocks={props.blocks} />
@@ -35,19 +36,7 @@ export const getStaticProps = async (ctx) => {
 }
 
 export const getStaticPaths = async () => {
-  const { data } = await client.query(
-    {
-      query: gql`      
-      query AllPagesQuery {
-        pages {
-          nodes {
-            uri
-          }
-        }
-      }
-      `
-    }
-  )
+  const data = await getPageStaticPaths();
 
   return {
     paths: data.pages.nodes.filter(yy => yy.uri !== "/").map(

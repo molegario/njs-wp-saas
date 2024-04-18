@@ -16,7 +16,7 @@ export default function Home(props) {
 export const getStaticProps = async () => {
   const data = await getPageStaticProps();
 
-  // console.log("DATA:::", data, data?.acfOptionsMainMenu?.mainMenu)
+  console.log("DATA:::", data, data?.acfOptionsMainMenu?.mainMenu)
 
   return {
     props: {
