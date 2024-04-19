@@ -10,6 +10,11 @@ export const getPageStaticPaths = async () => {
           uri
         }
       }
+      properties {
+        nodes {
+          uri
+        }
+      }
     }
     `
   })

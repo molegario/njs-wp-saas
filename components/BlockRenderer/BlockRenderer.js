@@ -3,7 +3,6 @@ import Column from "components/Column/Column";
 import Columns from "components/Columns/Columns";
 import Cover from "components/Cover/Cover";
 import Heading from "components/Heading/Heading";
-// import ImageBlock from "components/ImageBlock/ImageBlock";
 import Paragraph from "components/Paragraph/Paragraph";
 import Image from "next/image";
 
@@ -13,6 +12,7 @@ export const BlockRenderer = ({blocks}) => {
       case 'core/cover': {
         return (<Cover key={block.id} background={block.attributes.url}><BlockRenderer blocks={block.innerBlocks}/></Cover>);
       }
+      case 'core/post-title':
       case 'core/heading': {
         return (<Heading key={block.id} {...block.attributes} />);
       }
@@ -22,11 +22,9 @@ export const BlockRenderer = ({blocks}) => {
         )
       }
       case 'core/columns': {
-        console.log("COLUMNS::::", block)
         return (
           <Columns 
             key={block.id} 
-            // blocks={block?.innerBlocks ?? []} 
             isStackedOnMobile={block?.attributes?.isStackedOnMobile} 
           >
             <BlockRenderer blocks={block?.innerBlocks ?? []} />
@@ -34,7 +32,6 @@ export const BlockRenderer = ({blocks}) => {
         )
       }
       case 'core/column': {
-        console.log("COLUMN::::", block)
         return (
           <Column 
             width={block?.attributes?.width}

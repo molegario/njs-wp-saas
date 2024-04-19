@@ -1,6 +1,4 @@
 const Columns = (props) => {
-  console.log("COL::PROPS:::", props)
-
   const {
     isStackedOnMobile,
     children

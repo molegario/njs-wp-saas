@@ -3,9 +3,8 @@ import Link from 'next/link';
 import { FaHouseUser, FaHeart } from 'react-icons/fa'
 
 const MainMenu = (props) => {
-  console.log('MAINMENU::PROPS::', props)
   const { menuItems } = props
-  return ( 
+  return (
     <div className="bg-slate-800 text-white px-5 h-[64px] sticky top-0 z-20 flex">
       <div className="py-4 pl-3 flex text-pink-600">
         <FaHouseUser size={30} />
@@ -13,14 +12,13 @@ const MainMenu = (props) => {
       </div>
       <div className="flex flex-1 justify-end">
         {
-          (menuItems || [] ).map(xxx=>{
-            console.log("XXX::", xxx, xxx.items)
+          (menuItems || []).map(xxx => {
             return (
               <div key={xxx.id} className="hover:bg-slate-700 cursor-pointer relative group">
                 <div>
                   <Link
-                    className="p-5 block " 
-                    href={xxx.destination} 
+                    className="p-5 block "
+                    href={xxx.destination}
                   >{xxx.label}</Link>
                 </div>
                 {
@@ -53,5 +51,5 @@ const MainMenu = (props) => {
     </div>
   );
 }
- 
+
 export default MainMenu;
