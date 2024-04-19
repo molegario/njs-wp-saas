@@ -1,10 +1,12 @@
 import { BlockRenderer } from "components/BlockRenderer";
 import { cleanAndTransformBlocks } from "utils/cleanAndTransformBlocks";
+// import { cleanProperties } from "utils/cleanProperties";
 import { getPageStaticPaths } from "utils/getPageStaticPaths";
 import { getPageStaticProps } from "utils/getPageStaticProps";
 import { cleanCta, mapMainMenuItems } from "utils/mapMainMenuItems";
 
 const Page = (props) => {
+  console.log("SLUG::PROPS::", props)
   return (
     <div>
       <BlockRenderer blocks={props.blocks} />
@@ -20,6 +22,8 @@ export const getStaticProps = async (ctx) => {
   } = params;
   const uri = `/${slug.join('/')}/`;
   const data = await getPageStaticProps(uri);
+
+  // console.log("DATAOUT::::", cleanProperties(data.properties.nodes))
   return {
     props: {
       blocks: data?.nodeByUri?.blocks ? cleanAndTransformBlocks(data.nodeByUri.blocks) : [],

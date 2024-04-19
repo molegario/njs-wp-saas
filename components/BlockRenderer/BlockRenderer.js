@@ -4,6 +4,7 @@ import Columns from "components/Columns/Columns";
 import Cover from "components/Cover/Cover";
 import Heading from "components/Heading/Heading";
 import Paragraph from "components/Paragraph/Paragraph";
+import PropertySearch from "components/PropertySearch/PropertySearch";
 import Image from "next/image";
 
 export const BlockRenderer = ({blocks}) => {
@@ -66,6 +67,11 @@ export const BlockRenderer = ({blocks}) => {
             destination: block?.attributes?.data?.destination,
             align: block?.attributes?.data?.align,
           }} />
+        )
+      }
+      case 'acf/propertysearch': {
+        return (
+          <PropertySearch key={block.id} />
         )
       }
       default: {

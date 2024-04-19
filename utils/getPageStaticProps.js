@@ -16,7 +16,6 @@ export const getPageStaticProps = async (pageuri) => {
           title
           blocks(postTemplate: false)
         }
-
       }
       acfOptionsMainMenu {
         mainMenu {
