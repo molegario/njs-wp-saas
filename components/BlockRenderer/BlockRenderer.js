@@ -1,11 +1,14 @@
 import CallToAction from "components/CallToAction/CallToAction";
+import Column from "components/Column/Column";
+import Columns from "components/Columns/Columns";
 import Cover from "components/Cover/Cover";
 import Heading from "components/Heading/Heading";
+// import ImageBlock from "components/ImageBlock/ImageBlock";
 import Paragraph from "components/Paragraph/Paragraph";
+import Image from "next/image";
 
 export const BlockRenderer = ({blocks}) => {
   return blocks.map(block=>{
-    // console.log("BLOCK:::", block)
     switch(block.name) {
       case 'core/cover': {
         return (<Cover key={block.id} background={block.attributes.url}><BlockRenderer blocks={block.innerBlocks}/></Cover>);
@@ -18,6 +21,47 @@ export const BlockRenderer = ({blocks}) => {
           <Paragraph key={block.id} {...block.attributes}/>
         )
       }
+      case 'core/columns': {
+        console.log("COLUMNS::::", block)
+        return (
+          <Columns 
+            key={block.id} 
+            // blocks={block?.innerBlocks ?? []} 
+            isStackedOnMobile={block?.attributes?.isStackedOnMobile} 
+          >
+            <BlockRenderer blocks={block?.innerBlocks ?? []} />
+          </Columns>
+        )
+      }
+      case 'core/column': {
+        console.log("COLUMN::::", block)
+        return (
+          <Column 
+            width={block?.attributes?.width}
+            key={block.id}
+          >
+            <BlockRenderer
+              blocks={block?.innerBlocks ?? []}
+            />
+          </Column>
+        )
+      }
+      case 'core/image': {
+        return (
+          <Image 
+            key={block.id} 
+            src={block?.attributes?.url}
+            height={block?.attributes?.height}
+            width={block?.attributes?.width}
+            alt={block?.attributes?.alt || ""}
+          />
+        )
+      }
+      case 'core/group':
+      case 'core/block':
+      {
+        return <BlockRenderer key={block.id} blocks={block.innerBlocks}/>
+      }
       case 'acf/ctabutton': {
         return (
           <CallToAction key={block.id} {...{
@@ -27,8 +71,10 @@ export const BlockRenderer = ({blocks}) => {
           }} />
         )
       }
-      default: 
+      default: {
+        console.warn("UNKNOWN BLOCK::", block.name);
         return null;
+      }
     }
   })
 }
