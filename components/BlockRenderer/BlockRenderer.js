@@ -45,6 +45,7 @@ export const BlockRenderer = ({blocks}) => {
         )
       }
       case 'core/image': {
+        // console.log("IMAGE:::", block?.attributes?.url)
         return (
           <Image 
             key={block.id} 
@@ -52,6 +53,9 @@ export const BlockRenderer = ({blocks}) => {
             height={block?.attributes?.height}
             width={block?.attributes?.width}
             alt={block?.attributes?.alt || ""}
+            // priority="true"
+            placeholder="blur"
+            blurDataURL="block?.attributes?.url"
           />
         )
       }
@@ -75,7 +79,7 @@ export const BlockRenderer = ({blocks}) => {
         )
       }
       default: {
-        console.warn("UNKNOWN BLOCK::", block.name);
+        // console.warn("UNKNOWN BLOCK::", block.name);
         return null;
       }
     }

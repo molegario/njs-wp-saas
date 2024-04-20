@@ -13,7 +13,8 @@ export const cleanProperties = (properties) => {
         out.bedrooms = property?.propertyFeatures?.bedrooms
         out.hasParking = property?.propertyFeatures?.hasParking
         out.petFriendly = property?.propertyFeatures?.petFriendly
-        out.imgUri = property?.featuredImage.node.uri
+        out.price = property?.propertyFeatures?.price
+        out.imgUri = property?.featuredImage.node.sourceUrl
         out.imgTitle = property?.featuredImage.node.title
         return [...acc, out]
       },
