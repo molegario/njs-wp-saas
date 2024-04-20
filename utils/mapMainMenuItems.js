@@ -15,7 +15,7 @@ export const mapMainMenuItems = (mainMenuItems) => {
         out.label = block.label || ""
       }
 
-      if(block?.items) {
+      if (block?.items) {
         out.items = assignIds(block.items)
       }
 
@@ -26,11 +26,6 @@ export const mapMainMenuItems = (mainMenuItems) => {
   const updated = assignIds(cleaned)
   return updated;
 }
-
-// export const omit = (key, obj) => {
-//   const {[key]: omitted, ...rest} = obj;
-//   return rest;
-// }
 
 export const cleanCta = (ctaBlock) => {
   const cleaned = JSON.parse(JSON.stringify(ctaBlock));

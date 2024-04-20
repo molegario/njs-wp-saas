@@ -1,12 +1,13 @@
 import { gql } from "@apollo/client";
 import client from "client"
+// const PAGE_SIZE = 3;
 // import { cleanProperties } from "utils/cleanProperties";
 
-export const getPropertyPages = async () => {
+export const getPropertyPages = async (offset=0, size=1) => {
   const { data } = await client.query({
     query: gql`      
-      query PageQuery {
-        properties {
+      query PageQuery($offset: Int!, $size: Int!) {
+        properties(where: {offsetPagination: {offset: $offset, size: $size}}) {
           nodes {
             uri
             title
@@ -27,11 +28,17 @@ export const getPropertyPages = async () => {
               price
             }
           }
+          pageInfo {
+            offsetPagination {
+              total
+            }
+          }
         }
       }
       `,
     variables: {
-
+      offset,
+      size: size
     }
   })
 
