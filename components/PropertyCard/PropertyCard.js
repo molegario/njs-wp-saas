@@ -18,7 +18,7 @@ const PropertyCard = ({
   return ( 
     <Link 
       href={uri} 
-      className="border-2 border-slate-300 p-5 block bg-slate-100 hover:bg-slate-200"
+      className="min-h-[420px] border-2 border-slate-300 p-5 block bg-slate-100 hover:bg-slate-200"
     >
       <div className="flex w-full h-[200px] relative">
         <Image src={imgUri} alt={imgTitle} fill sizes="(max-width: 300px)"/>
