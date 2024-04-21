@@ -6,6 +6,12 @@ const Results = (props) => {
       {
         (props.properties || []).map(xx => <PropertyCard key={xx.id} {...xx} />)
       }
+      {
+        props.properties?.length === 0 && (<>
+          <div/><span className="block text-center p-5">no results available.</span><div/>
+        </>
+        )
+      }
     </div>
   );
 }

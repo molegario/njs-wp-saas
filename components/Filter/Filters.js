@@ -3,14 +3,14 @@ import Input from "components/Input/Input";
 import { useEffect, useState } from "react";
 
 const Filters = ({onSearch}) => {
-  const [petFriendly, setPetFriendly] = useState(false)
-  const [hasParking, setHasParking] = useState(false)
-  const [minPrice, setMinPrice] = useState("")
-  const [maxPrice, setMaxPrice] = useState("")
+  const [petfriendly, setPetFriendly] = useState(false)
+  const [hasparking, setHasParking] = useState(false)
+  const [minprice, setMinPrice] = useState("")
+  const [maxprice, setMaxPrice] = useState("")
 
   useEffect(
     () => {
-      const { petFriendly: prevPetFriendly, hasParking: prevHasParking, minPrice: prevMinPrice, maxPrice: prevMaxPrice, } = queryString.parse(window.location.search);
+      const { petfriendly: prevPetFriendly, hasparking: prevHasParking, minprice: prevMinPrice, maxprice: prevMaxPrice, } = queryString.parse(window.location.search);
       setPetFriendly(prevPetFriendly === "true")
       setHasParking(prevHasParking === "true")
       setMinPrice(prevMinPrice ?? "")
@@ -21,10 +21,10 @@ const Filters = ({onSearch}) => {
 
   const handleSearch = () => {
     onSearch({
-      petFriendly,
-      hasParking,
-      minPrice,
-      maxPrice,
+      petfriendly,
+      hasparking,
+      minprice,
+      maxprice,
     })
   }
 
@@ -33,24 +33,24 @@ const Filters = ({onSearch}) => {
       <div className="flex-1">
         <div>
           <label className="cursor-pointer">
-            <input type="checkbox" checked={hasParking} onChange={()=>setHasParking(prev=>!prev)} />
+            <input type="checkbox" checked={hasparking} onChange={()=>setHasParking(prev=>!prev)} />
             <span className="pl-2">has parking</span>
           </label>
         </div>
         <div>
           <label className="cursor-pointer">
-            <input type="checkbox" checked={petFriendly} onChange={()=>setPetFriendly(prev=>!prev)} />
+            <input type="checkbox" checked={petfriendly} onChange={()=>setPetFriendly(prev=>!prev)} />
             <span className="pl-2">pet friendly</span>
           </label>
         </div>
       </div>
       <div className="flex-1">
         <span>Min price</span>
-        <Input type="number" value={minPrice} onChange={evt=>setMinPrice(evt.target.value)} />
+        <Input type="number" value={minprice} onChange={evt=>setMinPrice(evt.target.value)} />
       </div>
       <div className="flex-1">
         <span>Max price</span>
-        <Input type="number" value={maxPrice} onChange={evt=>setMaxPrice(evt.target.value)} />
+        <Input type="number" value={maxprice} onChange={evt=>setMaxPrice(evt.target.value)} />
       </div>
       <div className="btn" onClick={handleSearch} >
         Search
