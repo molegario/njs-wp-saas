@@ -1,6 +1,6 @@
 "use client";
 import queryString from 'query-string';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Results from "./Results/Results";
 import PagingNavigation from "components/PagingNavigation/PagingNavigation";
 import { useRouter } from "next/router";
@@ -28,29 +28,27 @@ const PropertySearch = (props) => {
   const [data, setData] = useState({})
   const router = useRouter()
   const reqOffset = router?.query?.pageoffset ?? 0
-  // const refReqOffset = useRef(router?.query?.pageoffset ?? 0)
 
   const searchPages = async () => {
     const { pageoffset=0, petFriendly, hasParking, minPrice, maxPrice,  } = queryString.parse(window.location.search);
+
     const filters = {
       pagesize: PAGE_SIZE
     }
-    // console.log("INC::", typeof petFriendly, hasParking, minPrice, maxPrice)
+
     filters.offset = pageoffset
-    if (petFriendly && petFriendly.toLowerCase() === "true") {
+    if (!!petFriendly && petFriendly.toLowerCase() === "true") {
       filters.petfriendly = petFriendly
     }
-    if (hasParking && hasParking.toLowerCase() === "true") {
+    if (!!hasParking && hasParking.toLowerCase() === "true") {
       filters.hasparking = hasParking
     }
-    if (!!minPrice) {
+    if (!!minPrice && minPrice !== "undefined") {
       filters.minprice = minPrice
     }
-    if (!!maxPrice) {
+    if (!!maxPrice && maxPrice !== "undefined") {
       filters.maxprice = maxPrice
     }
-
-    console.log("FILTERS::", filters)
 
     const resp = await fetch(
       '/api/search',
@@ -82,7 +80,7 @@ const PropertySearch = (props) => {
 
   useEffect(
     () => {
-      searchPages()
+      searchPages() //init pull
     },
     []
   )
@@ -95,9 +93,9 @@ const PropertySearch = (props) => {
   )
 
   const handlePaging = (pageuri) => {
-    const { petFriendly, hasParking, minPrice, maxPrice, } = queryString.parse(window.location.search)
     return async evt => {
-      await router.push(`${router.query.slug.join("/")}?pageoffset=${pageuri}&petFriendly=${!!petFriendly}&hasParking=${!!hasParking}&minPrice=${minPrice}&maxPrice=${maxPrice}`, null, {shallow:true})
+      const { petFriendly, hasParking, minPrice, maxPrice, } = queryString.parse(window.location.search)
+      await router.push(`${router.query.slug.join("/")}?pageoffset=${pageuri}&petFriendly=${petFriendly==="true"}&hasParking=${hasParking==="true"}&minPrice=${minPrice}&maxPrice=${maxPrice}`, null, {shallow:true})
       searchPages()
     }
   }
@@ -112,9 +110,9 @@ const PropertySearch = (props) => {
   return ( 
     <div>
       <Filters onSearch={handleSearch} />
-      <PagingNavigation pages={pages} handlePaging={handlePaging} pagenum={reqOffset}/>
+      <PagingNavigation pages={pages} handlePaging={handlePaging} pagenum={reqOffset} />
       <Results properties={properties} />
-      <PagingNavigation pages={pages} handlePaging={handlePaging} pagenum={reqOffset}/>
+      <PagingNavigation pages={pages} handlePaging={handlePaging} pagenum={reqOffset} />
     </div>
    );
 }

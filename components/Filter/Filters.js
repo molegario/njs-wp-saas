@@ -1,11 +1,23 @@
+import queryString from 'query-string';
 import Input from "components/Input/Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Filters = ({onSearch}) => {
   const [petFriendly, setPetFriendly] = useState(false)
   const [hasParking, setHasParking] = useState(false)
   const [minPrice, setMinPrice] = useState("")
   const [maxPrice, setMaxPrice] = useState("")
+
+  useEffect(
+    () => {
+      const { petFriendly: prevPetFriendly, hasParking: prevHasParking, minPrice: prevMinPrice, maxPrice: prevMaxPrice, } = queryString.parse(window.location.search);
+      setPetFriendly(prevPetFriendly === "true")
+      setHasParking(prevHasParking === "true")
+      setMinPrice(prevMinPrice ?? "")
+      setMaxPrice(prevMaxPrice ?? "")
+    },
+    []
+  )
 
   const handleSearch = () => {
     onSearch({

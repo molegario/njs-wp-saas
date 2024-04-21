@@ -12,19 +12,15 @@ const handler = async (req, res) => {
     maxprice
   } = req?.body ?? {}
 
-  console.log(
-    "[SEARCH|API]::",
-    offset,
-    pagesize,
-    hasparking,
-    petfriendly,
-    minprice,
-    maxprice,
-    req.body
-  )
-
   try {
-    const data = await getPropertyPages(+offset, +pagesize);
+    const data = await getPropertyPages(
+      offset, 
+      pagesize,
+      hasparking,
+      petfriendly,
+      minprice,
+      maxprice,
+    );
     res.status(200).json({ 
       message: 'success requested search',
       data: cleanProperties(data?.properties?.nodes),
