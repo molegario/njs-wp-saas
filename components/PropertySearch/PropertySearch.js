@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Results from "./Results/Results";
 import PagingNavigation from "components/PagingNavigation/PagingNavigation";
 import { useRouter } from "next/router";
+import Filter from "components/Filter/Filter";
 const PAGE_SIZE = 3;
 
 export const fetcher = async (
@@ -90,6 +91,7 @@ const PropertySearch = (props) => {
 
   return ( 
     <div>
+      <Filter />
       <PagingNavigation pages={pages} handlePaging={handlePaging} pagenum={reqOffset} />
       <Results properties={properties} />
       <PagingNavigation pages={pages} handlePaging={handlePaging} pagenum={reqOffset} />
