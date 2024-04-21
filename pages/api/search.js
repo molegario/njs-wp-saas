@@ -3,8 +3,26 @@ import { getPropertyPages } from "utils/getPropertyPages";
 const FALLBACK_PAGE_SIZE = 1;
 
 const handler = async (req, res) => {
-  console.log("[SEARCH|API]::", req.body, req.query)
-  let { offset=0, pagesize=FALLBACK_PAGE_SIZE } = req.body;
+  const {
+    offset = 0, 
+    pagesize = FALLBACK_PAGE_SIZE,
+    petfriendly,
+    hasparking,
+    minprice,
+    maxprice
+  } = req?.body ?? {}
+
+  console.log(
+    "[SEARCH|API]::",
+    offset,
+    pagesize,
+    hasparking,
+    petfriendly,
+    minprice,
+    maxprice,
+    req.body
+  )
+
   try {
     const data = await getPropertyPages(+offset, +pagesize);
     res.status(200).json({ 
